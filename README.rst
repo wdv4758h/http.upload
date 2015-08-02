@@ -2,7 +2,7 @@
 http.upload
 ========================================
 
-A multithread SimpleHTTPServer with ability to handle Post request for upload files.
+A multithread SimpleHTTPServer with ability to handle POST request for upload files.
 It support both Python 2 & 3.
 (There are some useful code from `CPython's http.server <https://github.com/python/cpython/blob/master/Lib/http/server.py>`_ )
 
