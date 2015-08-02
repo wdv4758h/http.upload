@@ -46,7 +46,7 @@ Example :
 Todo
 ========================================
 
-* [ ] SSL support (it seems easy)
-* [ ] option for just upload, no list_directory or other files' GET support
-* [ ] default upload HTML (let user just need a Python script, no need for another HTML file)
-* [ ] better HTML for user
+* SSL support (it seems easy)
+* option for just upload, no list_directory or other files' GET support
+* default upload HTML (let user just need a Python script, no need for another HTML file)
+* better HTML for user
