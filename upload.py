@@ -195,8 +195,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--bind', '-b', default='', metavar='ADDRESS',
                         help='Specify alternate bind address '
-                             '[default: all interfaces] '
-                             '(not support in Python2)')
+                             '[default: all interfaces]')
     parser.add_argument('port', action='store',
                         default=8000, type=int,
                         nargs='?',
