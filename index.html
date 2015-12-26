@@ -6,7 +6,9 @@ function fileselect() {
     if (file) {
         var filesize = 0;
 
-        if (file.size > 1024 * 1024)
+        if (file.size > 1024 * 1024 * 1024)
+            filesize = (Math.round(file.size * 100 / (1024 * 1024 * 1024)) / 100).toString() + 'GB';
+        else if (file.size > 1024 * 1024)
             filesize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
         else
             filesize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
