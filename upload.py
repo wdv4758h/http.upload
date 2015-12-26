@@ -4,6 +4,7 @@
 #
 # License: GPLv3, see LICENSE for more details.
 
+from __future__ import unicode_literals     # for Python2
 from io import BytesIO
 import os.path
 import re
@@ -104,7 +105,10 @@ class SimplePostRequestHandler(BaseHTTPRequestHandler):
         line = self.rfile.readline()
         total = total - len(line)
 
-        files = re.findall(r'Content-Disposition.*; filename="(.*)"', line.decode())
+        if not isinstance(line, str):   # line is instance of "str" in Python2
+            line = line.decode()
+
+        files = re.findall(r'Content-Disposition.*; filename="(.*)"', line)
 
         if not any(files):
             return "Fail : You don't have filename !?"
