@@ -1,4 +1,69 @@
-<form method="POST" action="." enctype="multipart/form-data" accept-charset="UTF-8">
-File to upload: <input type="file" name="upload">
-<input type="submit" value="upload">
+<script>
+Notification.requestPermission();
+
+function fileselect() {
+    var file = document.getElementById('file').files[0];
+    if (file) {
+        var filesize = 0;
+
+        if (file.size > 1024 * 1024)
+            filesize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+        else
+            filesize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+
+        document.getElementById('filename').innerHTML = 'Name: ' + file.name;
+        document.getElementById('filesize').innerHTML = 'Size: ' + filesize;
+        document.getElementById('filetype').innerHTML = 'Type: ' + file.type;
+    }
+}
+
+function fileupload() {
+    var req = new XMLHttpRequest();
+    var form = document.getElementById('form');
+    var data = new FormData(form);
+    var url = form.action;
+
+    req.upload.addEventListener('progress', uploadProgress, false);
+    req.addEventListener('load', uploadComplete, false);
+    req.addEventListener('error', uploadFailed, false);
+    req.addEventListener('abort', uploadCanceled, false);
+
+    req.open('POST', url, true);
+    req.send(data);
+}
+
+function uploadProgress(evt) {
+    if (evt.lengthComputable) {
+        var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+        document.getElementById('progress').innerHTML = 'Progress : ' + percentComplete.toString() + '%';
+    } else {
+        document.getElementById('progress').innerHTML = 'Progress : unable to compute';
+    }
+}
+
+function uploadComplete(evt) {
+    new Notification('upload success');
+}
+
+function uploadFailed(evt) {
+    new Notification('upload failed');
+}
+
+function uploadCanceled(evt) {
+    new Notification('upload has been canceled');
+}
+</script>
+
+<form id='form' method='POST' action='.' enctype='multipart/form-data' accept-charset='UTF-8'>
+    File to upload: <input id='file' type='file' name='upload' onchange='fileselect()'>
+    <br/>
+    <br/>
+    <div style="border-style: solid; padding: 10px;">
+        <div id='filename'></div>
+        <div id='filesize'></div>
+        <div id='filetype'></div>
+        <div id="progress"></div>
+    </div>
+    <br/>
+    <input type='button' onclick='fileupload()' value='upload'>
 </form>
